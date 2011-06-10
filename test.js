@@ -30,8 +30,8 @@ var force	= false,
 /*
  * config
  */
-var creqs		= 100;
-var nreqs		= 1000;
+var creqs		= 500;
+var nreqs		= 5000;
 var prevport 	= 3000;
 
 /*
@@ -61,6 +61,11 @@ process.argv.splice(2).forEach(function (arg) {
 		break;
 	}
 });
+
+/*
+ * 
+ */
+var summary = [];
 
 fs.readdir(testsdir, function(error, tests) {
 	async.forEachSeries(tests, function(test, next) {
@@ -131,15 +136,22 @@ fs.readdir(testsdir, function(error, tests) {
 			},            
 		], function(error, results) {
 			if (error) {
-				console.log('ERROR >> ['+test+'] >> ' + error.message);
+				msg = 'ERROR >> ['+test+'] >> ' + error.message;
+				
 			} else {
-				console.log('DONE  >> ['+test+'] >> ' + results);
+				msg = 'DONE >> ['+test+'] >> ' + results;
 			}
+			
+			summary.push(msg);
+			console.log(msg);
 			
 			next();
 		});
-	}, function() {
-		console.log('>> ALL TESTS DONE <<');		
+	}, function() {		
+		console.log("\n\n\n" + '>> ALL TESTS DONE <<');	
+		summary.forEach(function(msg) {
+			console.log(msg);
+		});
 	});
 });
 

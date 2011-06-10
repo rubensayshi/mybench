@@ -1,5 +1,8 @@
 {% extends "hello_base.html" %}
 
 {% block content %}
-Hello {{ who }}
+Hello {{ who }},
+{% for i in list %}
+	#{{ i }},
+{% endfor %}
 {% endblock %}

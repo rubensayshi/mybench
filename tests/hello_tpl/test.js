@@ -26,9 +26,8 @@ app.use(express.session({secret: 'very secret secret'}));
 template_loader.set_path('tpl');
 
 app.get('/test', function(req, res){
-	template_loader.load_and_render('hello_tpl.html', {who : 'World'}, function(error, result) {
+	template_loader.load_and_render('hello_tpl.html', {who : 'World', list : [1,2,3,4,5,6,7,8,9,10]}, function(error, result) {
 		res.send(result);
-		
 	});
 });
 
